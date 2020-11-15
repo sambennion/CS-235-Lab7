@@ -71,39 +71,30 @@
                     delete old_root;
                 }
                 else{
-                    replace(old_root, local_root->leftChild);
-                    //delete old_root;
+                    //replace(old_root, local_root->leftChild);
+                    Node *ptr = local_root->leftChild;
+                    while (ptr->rightChild != NULL) {						
+                        ptr = ptr->rightChild;					
+                        }					
+                    local_root->data = ptr->getData();					
+                    removeHelper(local_root->leftChild, local_root->data);
                 }
                 return true;
             }
         }
     }
-
-    void BST::replace(Node*& old_root, Node*& local_root){
-        if(local_root->getRightChild() != NULL){
-            replace(old_root, local_root->rightChild); 
-        }
-        else{
-            old_root->data = local_root->data;
-            removeHelper(old_root->leftChild, local_root->data);
-        }
-    }
-
+	
     /*
 	* Removes all nodes from the tree, resulting in an empty tree.
 	*/
 	void BST::clear(){
-        clearHelper(rootNode);
+        clearHelper(this->rootNode);
+        rootNode = NULL;
     }
-    void BST::clearHelper(Node*& node){
-        if(node == NULL){
-            return;
-        }
-        if(node->getLeftChild() != NULL){
+    void BST::clearHelper(Node *&node){
+        if(node != NULL){
             clearHelper(node->leftChild);
-        }
-        if(node->getRightChild() != NULL){
             clearHelper(node->rightChild);
+            delete node;
         }
-        delete node;
     }

@@ -10,7 +10,9 @@ class BST: public BSTInterface{
     void replace(Node*& old_root, Node*& local_root);
     public:
         BST() {}
-        ~BST() {}
+        ~BST() {
+					clear();
+				}
 
         //Please note that the class that implements this interface must be made
         //of objects which implement the NodeInterface
